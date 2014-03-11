@@ -1,11 +1,12 @@
 # This file manages the installation of project open
 
 define projectopen (
-
+	
+	$companyname	= 'company',
 	$group		= 'projop',
 	$password	= 'projop',
-	$root		= 'postgres',
 	$port		= '8000',
+	$root		= 'postgres',
 
 ) {
 
@@ -25,6 +26,7 @@ define projectopen (
 	}
 	->
 	projectopen::postgresql_ins { "Get postgresql up and configured":
+		companyname	=> $companyname,
 		password	=> $password,
 		port		=> $port,
 		root		=> $root,
@@ -34,7 +36,12 @@ define projectopen (
 		port	=> $port,
 	}
 	->
+	projectopen::projectopen_config { "Configuring project open":
+		httpport	=> $port,
+		hostname	=> "bart",
+	}
+	->
 	projectopen::start { "Start project open on port ${port}":
-		group	=> $group,
+		group		=> $group,
 	}
 }

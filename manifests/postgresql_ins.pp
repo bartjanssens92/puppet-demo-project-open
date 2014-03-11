@@ -2,6 +2,7 @@
 
 define projectopen::postgresql_ins (
 
+	$companyname,
 	$password,
 	$port,
 	$root,
@@ -49,6 +50,12 @@ define projectopen::postgresql_ins (
                 line    => "set httpport            ${port}",
                 match   => '[set]{3}\s[httpport]{8}\s*',
         }
+	->
+	file_line { "Inserting the company name: ${companyname}":
+		path	=> "/web/projop/etc/config.tcl",
+		line	=> "set servername   \"${companyname} project-open Server\"",
+		match	=> "[set]{3}\s[servername]{10}\s*",
+	}
 
 
 }
