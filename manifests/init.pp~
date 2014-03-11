@@ -1,0 +1,21 @@
+# This file manages the installation of project open
+
+class projectopen (
+
+	$user		= 'projop',
+	$group		= 'projop',
+	$directory	= '/web',
+	$password	= 'projop',
+	$port		= '8000',
+
+) {
+
+	include opening_ports
+	include basic_config	
+	include basic_webserver
+	include packages
+	class{ 'installer_content':
+#		user	=> $user
+	}
+
+}
