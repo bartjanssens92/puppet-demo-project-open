@@ -1,6 +1,6 @@
 # This class configures postgersql to work 
 
-define postgresql_ins (
+define projectopen::postgresql_ins (
 
 	$password,
 	$port,

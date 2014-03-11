@@ -1,6 +1,6 @@
 # This class manages the users and groups needed for projectopen
 
-define users_and_groups (
+define projectopen::users_and_groups (
 
 	$group
 

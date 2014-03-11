@@ -1,6 +1,6 @@
 # This class manages the permissions for project open
 
-define permissions (
+define projectopen::permissions (
 
 	$group
 

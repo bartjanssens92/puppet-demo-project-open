@@ -1,6 +1,6 @@
 # This class opens the specified port for postgres to lisen to
 
-define opening_ports (
+define projectopen::opening_ports (
 
 	$port
 

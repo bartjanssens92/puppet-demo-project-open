@@ -1,6 +1,6 @@
 # This class gets the needed archives for project open
 
-define project_open_archives {
+define projectopen::project_open_archives {
 
         archive { 'web_projop-aux-files.4.0.4.0.0':
                 ensure                  => 'present',

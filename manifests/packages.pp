@@ -1,9 +1,35 @@
 # This class gets all the packages needed for project open
 
-class packages {
+class projectopen::packages {
 
 	case $::operatingsystem {
 		centos, redhat: {
+			
+			yumrepo {'epel':
+
+			                name            => 'epel',
+                			mirrorlist      => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=x86_64',
+                			enabled         => 1,
+                			gpgcheck        => 0,
+
+        		}
+
+			if ! defined(Package['vim-enhanced']) {
+				 package { 'vim-enhanced': ensure  => 'present', require => Yumrepo['epel'], }
+			}
+
+			if ! defined(Package['man']) {
+				package { 'man':		ensure	=> 'present',}
+			}
+
+			if ! defined(Package['lsof']) {
+				package { 'lsof':		ensure	=> 'present', }
+			}
+
+			if ! defined(Package['ntp']) {
+				package {'ntp':			ensure	=> 'present', }
+			}
+	
 			if ! defined(Package['cvs']) { 
 				package { 'cvs':		ensure	=> 'present', } 
 			}
