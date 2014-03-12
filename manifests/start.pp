@@ -2,17 +2,16 @@
 
 define projectopen::start (
 
+	$dbname,
 	$group,
-	$projectopen 	= "# This file is needed to start project open, this is an init file and needs improvement
-#!/bin/sh
-/usr/local/aolserver451_rc2/bin/nsd -it /web/projop/etc/config.tcl -u projop -g ${group} &
-exit 0"
+	$serverroot,
+	$user,
 
-){
+) {
 
-        file { '/etc/init.d/projectopen.sh':
-                ensure  => file,
-                content => $projectopen
+        file { "/etc/init.d/projectopen.sh":
+		path	=> "/etc/init.d/projectopen.sh",
+                content => template("projectopen/projectopen.sh.erb"),
         }
         ->
         exec { 'Getting the premissions right for projectopen.sh':

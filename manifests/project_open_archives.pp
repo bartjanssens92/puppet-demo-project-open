@@ -1,12 +1,18 @@
 # This class gets the needed archives for project open
 
-define projectopen::project_open_archives {
+define projectopen::project_open_archives (
+
+	$dbname,
+	$homedir,
+	$serverroot,
+
+){
 
         archive { 'web_projop-aux-files.4.0.4.0.0':
                 ensure                  => 'present',
                 url                     => 'http://sourceforge.net/projects/project-open/files/project-open/Support%20Files/web_projop-aux-files.4.0.4.0.0.tgz',
                 extension               => 'tgz',
-                target                  => "/web/projop",
+                target                  => "${serverroot}/${dbname}",
                 follow_redirects        => true,
                 checksum                => false,
         }
@@ -15,7 +21,7 @@ define projectopen::project_open_archives {
                 ensure                  => 'present',
                 url                     => 'http://sourceforge.net/projects/project-open/files/project-open/V4.0/project-open-Update-4.0.4.0.0.tgz',
                 extension               => 'tgz',
-                target                  => "/web/projop",
+                target                  => "${serverroot}/${dbname}",
                 follow_redirects        => true,
                 checksum                => false,
         }
@@ -24,7 +30,7 @@ define projectopen::project_open_archives {
                 ensure                  => 'present',
                 url                     => 'http://sourceforge.net/projects/project-open/files/project-open/Support%20Files/aolserver451rc2-po2.nsreturnz.el6.x86_64.tgz',
                 extension               => 'tgz',
-                target                  => '/usr/local/',
+                target                  => "${homedir}",
                 follow_redirects        => true,
                 checksum                => false,
         }

@@ -33,11 +33,11 @@ set httpsport		<%= @httpsport %>
 set hostname		<%= @hostname %>
 
 # set address		127.0.0.1
-set address		<%= @address %>
+set address		"<%= @address %>"
 
-set server		<%= @server %> 
-set servername   	<%= @servername %>
-set serverroot		"<%= @serverroot %>/${server}"
+set server		"<%= @server %>"
+set servername   	"<%= @servername %> project-open Server DEMO"
+set serverroot		"<%= @serverroot %>/<%= @dbname %>"
 
 
 # Debug is turned on for demo servers. Please turn off for

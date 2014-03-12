@@ -2,20 +2,24 @@
 
 define projectopen::permissions (
 
-	$group
+	$group,
+	$homedir,
+	$serverroot,
+	$server,
+	$user,
 
 ) {
 
 	exec { "chown":
-                command => "/bin/chown -R projop:${group} /web/projop",
+                command => "/bin/chown -R ${user}:${group} ${serverroot}/${server}",
                 require => Class ["packages"],
                 creates => "/home/vagrant/.postgresqlOK.txt",
 	}
 	->
-	file { "Giving the right permissions for /usr/src/aolserver folder":
-                path    => "/usr/local/*",
+	file { "Giving the right permissions for ${homedir}aolserver folder":
+                path    => "${homedir}/*",
                 group   => $group,
-                owner   => "projop",
+                owner   => "${user}",
         }
 
 }

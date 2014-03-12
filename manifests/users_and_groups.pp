@@ -2,7 +2,10 @@
 
 define projectopen::users_and_groups (
 
-	$group
+	$dbname,
+	$group,
+	$serverroot,
+	$user
 
 ) {
 
@@ -12,17 +15,17 @@ define projectopen::users_and_groups (
 		provider	=> "groupadd",
 	}
 	->
-	user { "Adding the user projop to group ${group}":
-		name	=> "projop",
+	user { "Adding the user ${user} to group ${group}":
+		name	=> "${user}",
 		ensure	=> "present",
-		home	=> "/web/projop",
+		home	=> "${serverroot}/${dbname}",
 		groups	=> $group,
 	}
 	->
 	file { "Making the home folder":
-		path	=> "/web",
+		path	=> "${serverroot}",
 		ensure	=> directory,
-		owner	=> "projop",
+		owner	=> "${user}",
 		group	=> $group,
 	}
 	

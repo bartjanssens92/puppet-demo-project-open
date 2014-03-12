@@ -1,0 +1,7 @@
+# MANAGED BY PUPPET
+
+#!/bin/sh /etc/rc.common
+
+/usr/local/aolserver451_rc2/bin/nsd -it <%= @serverroot %>/<%= @dbname %>/etc/config.tcl -u <%= @user %> -g <%= @group %> &
+
+exit 0
