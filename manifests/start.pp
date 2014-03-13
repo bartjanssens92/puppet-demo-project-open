@@ -9,16 +9,14 @@ define projectopen::start (
 
 ) {
 
-        file { "/etc/init.d/projectopen.sh":
-		path	=> "/etc/init.d/projectopen.sh",
+        file { "/etc/init.d/projectopen":
+		path	=> "/etc/init.d/projectopen",
                 content => template("projectopen/projectopen.erb"),
+		mode	=> "0755",
+		notify	=> Service["projectopen"],
         }
-        ->
-        exec { 'Getting the premissions right for projectopen':
-                command => 'chmod 555 /etc/init.d/projectopen',
-        }
-        ->
-        service {'projectopen':
+
+        service {"projectopen":
                 ensure  => 'running',
         }
 }
