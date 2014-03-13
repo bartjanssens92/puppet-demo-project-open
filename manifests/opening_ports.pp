@@ -13,8 +13,9 @@ define projectopen::opening_ports (
         }
         -> 
         service { " Restarting service iptabels":
-                name	=> "iptables",
-                restart	=> "/sbin/service iptables restart",
+                name	        => "iptables",
+                restart	        => "service iptables restart",
+                subscribe       => File_line["Opening Ports 22, 80, ${port}"],
         }
 
 }
