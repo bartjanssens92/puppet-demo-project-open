@@ -26,8 +26,8 @@ These are the default parameters.
 		$httpport		= "8000",
 		$httpsport		= "8443",
 		$password		= "projop",
-		$root			= "postgres",
 		$serverroot		= "/web",
+		$superuser		= "postgres",
 		$user			= "projop",
 	}
 ```
@@ -87,7 +87,7 @@ See httpport.
 
 The password for the postgresql database that will be created.
 
-### root
+### superuser
 
 The root user off postgresql. This is to add the plpsql language to the database for project open.
 

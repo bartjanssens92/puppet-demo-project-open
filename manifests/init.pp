@@ -11,8 +11,8 @@ define projectopen (
 	$httpport		= "8000",
 	$httpsport		= "8443",
 	$password		= "projop",
-	$root			= "postgres",
 	$serverroot		= "/web",
+	$superuser		= "postgres",
 	$user			= "projop",
 
 ) {
@@ -46,7 +46,7 @@ define projectopen (
 	projectopen::postgresql_ins { "Get postgresql up and configured":
 		dbname		=> $dbname,
 		password	=> $password,
-		root		=> $root,
+		root		=> $superuser,
 		server		=> $server,
 		serverroot	=> $serverroot,
 		user		=> $user,

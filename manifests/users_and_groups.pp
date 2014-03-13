@@ -7,7 +7,7 @@ define projectopen::users_and_groups (
 	$serverroot,
 	$user
 
-) {
+)  {
 
 	group { "project open":
 		name		=> $group,
