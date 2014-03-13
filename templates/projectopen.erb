@@ -19,10 +19,11 @@ start() {
 }
 # Restart the service projectopen
 stop() {
-	rm -f /var/lock/subsys/projectopen
+	pkill nsd
         echo -n "Stopping projectopen: "
         ### Now, delete the lock file ###
-	pkill nsd
+        rm -f /var/lock/subsys/projectopen
+        rm -f /var/run/projectopen.pid
 	success $"projectopen stop"
         echo
 }

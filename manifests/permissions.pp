@@ -10,16 +10,24 @@ define projectopen::permissions (
 
 ) {
 
-	exec { "chown":
-                command => "/bin/chown -R ${user}:${group} ${serverroot}/${server}",
-                require => Class ["packages"],
-                creates => "/home/vagrant/.postgresqlOK.txt",
+	file { "Giving permisions to ${serverroot}/${server}/log":
+	    path	=> "${serverroot}/${server}/log",
+        require => Class ["packages"],
+        owner	=> "${user}",
+        group 	=> "${group}",
+        mode	=> "0750",
 	}
-	->
+
+	file  { "Giving permisions to ${serverroot}/${server}":
+		path 	=> "${serverroot}/${server}",
+		owner	=> "${user}",
+		group 	=> "${group}",
+	}
+
 	file { "Giving the right permissions for ${homedir}aolserver folder":
-                path    => "${homedir}/*",
-                group   => $group,
-                owner   => "${user}",
+        path    => "${homedir}/*",
+       	group   => $group,
+        owner   => "${user}",
         }
 
 }

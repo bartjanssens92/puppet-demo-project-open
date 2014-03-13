@@ -2,18 +2,18 @@
 
 define projectopen (
 	
-	$address	= "0.0.0.0",
+	$address		= "0.0.0.0",
 	$companyname	= "company",
-	$dbname		= "projop",
-	$debug		= "true",
-	$group		= "projop",
-	$hostname	= "hostname",
-	$httpport	= "8000",
-	$httpsport	= "8443",
-	$password	= "projop",
-	$root		= "postgres",
-	$serverroot	= "/web",
-	$user		= "projop",
+	$dbname			= "projop",
+	$debug			= "true",
+	$group			= "projop",
+	$hostname		= "hostname",
+	$httpport		= "8000",
+	$httpsport		= "8443",
+	$password		= "projop",
+	$root			= "postgres",
+	$serverroot		= "/web",
+	$user			= "projop",
 
 ) {
 	
@@ -75,4 +75,5 @@ define projectopen (
 		serverroot	=> $serverroot,
 		user		=> $user,
 	}
+
 }
