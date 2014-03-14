@@ -8,7 +8,7 @@ This module installes the demo-version off project open, currently only on a cen
 
 ```puppet
 
-	projectopen { 'Project Open': }
+	projectopen { 'Project-Open': }
 
 ```
 ### Custom with all parameters
@@ -17,18 +17,18 @@ These are the default parameters.
 
 ```puppet
 	projectopen { 'Project Open':
-		$address		= "0.0.0.0",
-		$companyname	= "company",
-		$dbname			= "projop",
-		$debug			= "true",
-		$group			= "projop",
-		$hostname		= "hostname",
-		$httpport		= "8000",
-		$httpsport		= "8443",
-		$password		= "projop",
-		$serverroot		= "/web",
-		$superuser		= "postgres",
-		$user			= "projop",
+		address			=> "0.0.0.0",
+		companyname		=> "company",
+		dbname			=> "projop",
+		debug			=> "true",
+		group			=> "projop",
+		hostname		=> "hostname",
+		httpport		=> "8000",
+		httpsport		=> "8443",
+		password		=> "projop",
+		serverroot		=> "/web",
+		superuser		=> "postgres",
+		user			=> "projop",
 	}
 ```
 ## Needed modules
