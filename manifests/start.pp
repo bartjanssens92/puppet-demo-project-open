@@ -13,16 +13,15 @@ define projectopen::start (
 			path	=> "/etc/init.d/projectopen",
             content => template("projectopen/projectopen.erb"),
 			mode	=> "0755",
-			notify	=> Service["projectopen"],
+#			notify	=> Service["projectopen"],
         }
 
-        service { "projectopen":
-        	name	=> "nds",
-        	ensure  => true,
-        	start	=> "service projectopen start",
-        	stop	=> "service projectopen stop",
-        	restart	=> "service projectopen restart",
-
-        }
+#        service { "projectopen":
+#        	name	=> "nds",
+#        	ensure  => true,
+#        	start	=> "service projectopen start",
+#        	stop	=> "service projectopen stop",
+#        	restart	=> "service projectopen restart",
+#        }
 
 }

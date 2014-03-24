@@ -26,8 +26,13 @@ define projectopen::permissions (
 
 	file { "Giving the right permissions for ${homedir}aolserver folder":
         path    => "${homedir}/*",
-       	group   => $group,
+       	group   => "${group}",
         owner   => "${user}",
-        }
+    }
 
+    file { "Giving the right permissions for ${serverroot}/${server}/www":
+    	path	=> "${serverroot}/${server}/www",
+    	group 	=> "${group}",
+    	owner	=> "${user}",
+	}
 }

@@ -1,6 +1,6 @@
 # This class configures postgersql to work 
 
-define projectopen::postgresql_ins (
+class projectopen::postgresql_ins (
 
 	$dbname,
 	$password,
@@ -10,20 +10,15 @@ define projectopen::postgresql_ins (
 	$user,	
 
 ) {
-
-        class { 'postgresql::server': }
+        postgres::createuser{ "$user":passwd => "${password}",}
         ->
-        postgresql::server::db { "${dbname}":
-                user            => "${user}",
-                password        => postgresql_password("${user}", $password),
-                grant           => 'all',
-        }
+        postgres::createdb{"${dbname}":owner=> "${user}",}
         ->
-        postgresql::server::config_entry { 'add_missing_from':  value => 'on', }
+        postgres::config { 'add_missing_from':  value => 'on', }
         ->
-        postgresql::server::config_entry { 'regex_flavor':      value => 'extended', }
+        postgres::config { 'regex_flavor':      value => 'extended', }
         ->
-        postgresql::server::config_entry { 'default_with_oids': value => '', }
+        postgres::config { 'default_with_oids': value => '', }
         ->
         exec { 'enable the procedural language PlPg/SQL':
                 command => "su - $root -c 'createlang plpgsql ${dbname}'",

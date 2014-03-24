@@ -2,121 +2,63 @@
 
 class projectopen::packages {
 
-	notify { "Which OS is this?":
-		name	=> "Which OS is this?",
-		message	=> "This is a ${operatingsystem} ${operatingsystemrelease}",
-	}
+  notify { "Which OS is this?":
+    name	=> "Which OS is this?",
+    message	=> "This is a ${operatingsystem} ${operatingsystemrelease}",
+  }
 
-	case $::operatingsystem {
-		centos, redhat: {
+  case $::operatingsystem {
+    centos, redhat: {
 			
-			yumrepo {'epel':
+      yumrepo {'epel':
+        name        => 'epel',
+        mirrorlist  => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=x86_64',
+        enabled     => 1,
+        gpgcheck    => 0,
+      }
 
-			                name            => 'epel',
-                			mirrorlist      => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=x86_64',
-                			enabled         => 1,
-                			gpgcheck        => 0,
+      if ! defined(Package['cvs']) { package { 'cvs':  ensure  => 'present', } }
 
-        		}
+      if ! defined(Package['libXaw']) { package { 'libXaw':  ensure  => 'present', } }
 
-			if ! defined(Package['vim-enhanced']) {
-				 package { 'vim-enhanced': ensure  => 'present', require => Yumrepo['epel'], }
-			}
+      if ! defined(Package['expat']) { package { 'expat':  ensure  => 'present', } }
 
-			if ! defined(Package['man']) {
-				package { 'man':		ensure	=> 'present',}
-			}
+      if ! defined(Package['expat-devel']) { package { 'expat-devel':  ensure  => 'present', } }
 
-			if ! defined(Package['lsof']) {
-				package { 'lsof':		ensure	=> 'present', }
-			}
+      if ! defined(Package['pango']) { package { 'pango':		ensure	=> 'present', } }
 
-			if ! defined(Package['ntp']) {
-				package {'ntp':			ensure	=> 'present', }
-			}
-	
-			if ! defined(Package['cvs']) { 
-				package { 'cvs':		ensure	=> 'present', } 
-			}
+      if ! defined(Package['graphviz-devel']) { package { 'graphviz-devel':	ensure  => 'present', } }
 
-			if (!defined(Package['libXaw'])) {
-				package { 'libXaw':		ensure	=> 'present', }
-			}
-	
-			if ! defined(Package['expat']) {
-				package { 'expat':		ensure	=> 'present', }
-			}
+      if ! defined(Package['ImageMagick']) { package { 'ImageMagick':  ensure  => 'present', } }
 
-		    if ! defined(Package['expat-devel']) {
-				package { 'expat-devel':	ensure	=> 'present', }
-			}
+      if ! defined(Package['libdbi-dbd-pgsql']) { package { 'libdbi-dbd-pgsql':  ensure  => 'present', } }
 
-		    if ! defined(Package['pango']) {
-				package { 'pango':		ensure	=> 'present', }
-        	}
+      if ! defined(Package['openldap-clients']) { package { 'openldap-clients':  ensure  => 'present', } }
 
-			if ! defined(Package['graphviz-devel']) {
-				package { 'graphviz-devel':	ensure	=> 'present', }
-        	}
+      if ! defined(Package['openldap-devel']) { package { 'openldap-devel':  ensure  => 'present', } }
 
-			if ! defined(Package['ImageMagick']) {
-				package { 'ImageMagick':	ensure 	=> 'present', }
-			}
+      if ! defined(Package['perl-YAML']) { package { 'perl-YAML':  ensure  => 'present', } }
 
-		    if ! defined(Package['libdbi-dbd-pgsql']) {
-				package { 'libdbi-dbd-pgsql':	ensure	=> 'present', }
-       		}
-	
-			if ! defined(Package['openldap-clients']) {
-				package { 'openldap-clients':	ensure	=> 'present', }
-        	}
-	
-			if ! defined(Package['openldap-devel']) {
-				package { 'openldap-devel':	ensure	=> 'present', }
-       		}
-	
-			if ! defined(Package['perl-YAML']) {
-				package	{ 'perl-YAML':		ensure	=> 'present', }
-			}
+      if ! defined(Package['libreoffice']) { package { 'libreoffice':  ensure  => 'present', } }
 
-		    if ! defined(Package['libreoffice']) {
-				package { 'libreoffice':	ensure	=> 'present', }
-		    }
-	
-			if ! defined(Package['libreoffice-headless']) {
-				package	{ 'libreoffice-headless':ensure	=> 'present', }
-			}
-	
-		    if ! defined(Package['curl']) {
-				package { 'curl':		ensure 	=> 'present',}
-			}
-		}
+      if ! defined(Package['libreoffice-headless']) { package	{ 'libreoffice-headless':  ensure  => 'present', } }
 
-		debian: {
-			
-			if ! defined(Package['git-core']) {
-				package { 'git-core':	ensure	=> 'present' }
-			}
-			
-			if ! defined(Package['emacs']) {
-			 	package { 'emacs':		ensure	=> 'present', }
-			}
+      if ! defined(Package['curl']) { package { 'curl':  ensure  => 'present',} }
+    }
 
-			if ! defined(Package['unzip']) { 
-				package { 'unzip':		ensure	=> 'present', }
-			}
+    debian: {
 
-			if ! defined(Package['zip']) { 
-			 	package { 'zip':		ensure	=> 'present', } 
-			}
+      if ! defined(Package['git-core']) { package { 'git-core':  ensure  => 'present' } }
 
-			if ! defined(Package['make']) {
-			 	package { 'make':		ensure	=> 'present', }
-			}
+      if ! defined(Package['emacs']) { package { 'emacs':  ensure  => 'present', } }
 
-			if ! defined(Package['wwwconfig-common']) { 
-			 	package { 'wwwconfig-common':	ensure	=> 'present', }
-			}
+      if ! defined(Package['unzip']) { package { 'unzip':  ensure  => 'present', } }
+
+      if ! defined(Package['zip']) { package { 'zip':  ensure  => 'present', } }
+
+      if ! defined(Package['make']) { package { 'make':  ensure  => 'present', } }
+
+      if ! defined(Package['wwwconfig-common']) { package { 'wwwconfig-common':  ensure  => 'present', } }
 
 			if ! defined(Package['nginx']) { 
 			 	package { 'nginx':		ensure	=> 'present', }
@@ -240,7 +182,7 @@ class projectopen::packages {
 			if ! defined(Package['gsfonts']) {
 				package { 'gsfonts':		ensure	=> 'present', }
 			}
- 
+
 			if ! defined(Package['psfontmgr']) {
 				package { 'psfontmgr':		ensure	=> 'present', }
 			}
