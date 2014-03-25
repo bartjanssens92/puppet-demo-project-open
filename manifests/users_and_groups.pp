@@ -2,31 +2,30 @@
 
 class projectopen::users_and_groups (
 
-	$dbname,
-	$group,
-	$serverroot,
-	$user
+  $dbname      = undef,
+  $group       = undef,
+  $serverroot  = undef,
+  $user        = undef,
 
 )  {
 
-	group { "project open":
-		name		=> $group,
-		ensure		=> "present",
-		provider	=> "groupadd",
-	}
-	->
-	user { "Adding the user ${user} to group ${group}":
-		name	=> "${user}",
-		ensure	=> "present",
-		home	=> "${serverroot}/${dbname}",
-		groups	=> $group,
-	}
-	->
-	file { "Making the home folder":
-		path	=> "${serverroot}",
-		ensure	=> directory,
-		owner	=> "${user}",
-		group	=> $group,
-	}
-	
+  group { 'project open':
+    ensure    => 'present',
+    name      => $group,
+    provider  => 'groupadd',
+  }
+  ->
+  user { "Adding the user ${user} to group ${group}":
+    ensure  => 'present',
+    name    => $user,
+    home    => "${serverroot}/${dbname}",
+    groups  => $group,
+  }
+  ->
+  file { 'Making the home folder':
+    ensure  => directory,
+    path    => $serverroot,
+    owner   => $user,
+    group   => $group,
+  }
 }

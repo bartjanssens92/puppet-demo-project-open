@@ -41,6 +41,10 @@ Git: https://github.com/camptocamp/puppet-archive.git
 
 Git: https://github.com/puppetlabs/puppetlabs-concat.git
 
+## Firewall
+
+Git: https://github.com/puppetlabs/puppetlabs-firewall.git
+
 ### Postgresql
 
 Git: https://github.com/puppetlabs/puppetlabs-postgresql.git

@@ -29,13 +29,13 @@ define projectopen (
     user        => $user,
   }
   ->
-  projectopen::project_open_archives { 'Get the nessecery files for project open':
+  class {'projectopen::project_open_archives':
     dbname      => $dbname,
     homedir     => '/usr/local',
     serverroot  => $serverroot,
   }
   ->
-  projectopen::permissions { 'Get the permissions right':
+  class {'projectopen::permissions':
     group       => $group,
     homedir     => '/usr/local',
     server      => $dbname,
@@ -52,11 +52,12 @@ define projectopen (
     user        => $user,
   }
   ->
-  projectopen::opening_ports { 'Opening ports':
-    port  => $httpport,
+  class { 'projectopen::firewall_ins':
+    port   => $httpport,
+    sport  => $httpsport,
   }
   ->
-  projectopen::projectopen_config { 'Configuring project open':
+  class {'projectopen::projectopen_config':
     address     => $::adddress,
     dbname      => $dbname,
     debug       => $debug,
@@ -69,7 +70,7 @@ define projectopen (
     serverroot  => $serverroot,
   }
   ->
-  projectopen::start { "Start project open on port ${::port}":
+  class { 'projectopen::start':
     dbname      => $dbname,
     group       => $group,
     serverroot  => $serverroot,
