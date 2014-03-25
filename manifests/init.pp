@@ -74,7 +74,6 @@ define projectopen (
     path     => '/etc/init.d/projectopen',
     content  => template('projectopen/projectopen.erb'),
     mode     => '0755',
-    #notify   => Service["projectopen"],
   }
 
 #  service { "projectopen":
@@ -83,5 +82,6 @@ define projectopen (
 #    start    => "service projectopen start",
 #    stop     => "service projectopen stop",
 #    restart  => "service projectopen restart",
+#    require  => File['/etc/init.d/projectopen'],
 #  }
 }
