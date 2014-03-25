@@ -70,10 +70,18 @@ define projectopen (
     serverroot  => $serverroot,
   }
   ->
-  class { 'projectopen::start':
-    dbname      => $dbname,
-    group       => $group,
-    serverroot  => $serverroot,
-    user        => $user,
+  file { '/etc/init.d/projectopen':
+    path     => '/etc/init.d/projectopen',
+    content  => template('projectopen/projectopen.erb'),
+    mode     => '0755',
+    #notify   => Service["projectopen"],
   }
+
+#  service { "projectopen":
+#    name     => "nds",
+#    ensure   => true,
+#    start    => "service projectopen start",
+#    stop     => "service projectopen stop",
+#    restart  => "service projectopen restart",
+#  }
 }

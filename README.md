@@ -41,7 +41,7 @@ Git: https://github.com/camptocamp/puppet-archive.git
 
 Git: https://github.com/puppetlabs/puppetlabs-concat.git
 
-## Firewall
+### Firewall
 
 Git: https://github.com/puppetlabs/puppetlabs-firewall.git
 
@@ -102,3 +102,9 @@ The directory where all the projectopen files will be placed in.
 ### user
 
 The user off the database on the machine.
+
+## Project open REMOVE DOME VERSION
+
+You can remove most of the demo data if you use an admin account. You need to go to: /admin/cleanup-demo/. This is the same as ADMIN-> ADMIN HOME -> scroll down till you see the area marked a Dangerous!! and click the first point. This allows to get rid off the demo data.
+
+The other thing you will need to do is adapt the loginscreen, so that is doesnt show the users (and their passwords) anymore. You will need to edit the following file: $serverroot/dbname/www/index.adp and comment out (or delete) lines 45-72 and line 92. There is currently no other way to achive this.
