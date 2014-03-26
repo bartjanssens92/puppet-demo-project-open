@@ -17,11 +17,11 @@ define projectopen (
 
 ) {
 
-  include projectopen::packages
-
   # Fix the path issue
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
+  class { 'projectopen::packages':}
+  ->
   class { 'projectopen::users_and_groups':
     dbname      => $dbname,
     group       => $group,
@@ -30,11 +30,11 @@ define projectopen (
   }
   ->
   # Ugly package fix till packages are available on repo
-  exec { 'Installing projectopen-dbname':
-    command  => "yum install /vagrant/modules/projectopen/files/projectopen-dbname-1.0-1.x86_64.rpm /vagrant/modules/projectopen/files/projectopen-aolserver-1.0-1.x86_64.rpm -y",
-    creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
-  }
-  ->
+#  exec { 'Installing projectopen-dbname':
+#    command  => "yum install /vagrant/modules/projectopen/files/projectopen-dbname-1.0-1.x86_64.rpm /vagrant/modules/projectopen/files/projectopen-aolserver-1.0-1.x86_64.rpm -y",
+#    creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
+#  }
+#  ->
   class {'projectopen::permissions':
     group       => $group,
     homedir     => '/usr/local',

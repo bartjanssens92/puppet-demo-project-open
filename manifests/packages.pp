@@ -17,6 +17,21 @@ class projectopen::packages {
         descr    => 'Upstream packages at Inuits',
         gpgcheck => '0',
       }
+     
+      if ! defined(Package['projectopen-aolserver']) {
+        package { 'projectopen-aolserver':
+          ensure   => 'present',
+          require  => Yumrepo['upstream'],
+        }
+      }
+
+      if ! defined(Package['projectopen-dbname']) {
+        package { 'projectopen-dbname':
+          ensure   => 'present',
+          require  => Yumrepo['upstream'],
+        }
+      }
+
 
       if ! defined(Package['cvs']) {
         package { 'cvs':  ensure  => 'present', }
