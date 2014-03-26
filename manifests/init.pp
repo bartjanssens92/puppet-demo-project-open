@@ -29,10 +29,10 @@ define projectopen (
     user        => $user,
   }
   ->
-  class {'projectopen::project_open_archives':
-    dbname      => $dbname,
-    homedir     => '/usr/local',
-    serverroot  => $serverroot,
+  # Ugly package fix till packages are available on repo
+  exec { 'Installing projectopen-dbname':
+    command  => "yum install /vagrant/modules/projectopen/files/projectopen-dbname-1.0-1.x86_64.rpm /vagrant/modules/projectopen/files/projectopen-aolserver-1.0-1.x86_64.rpm -y",
+    creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
   }
   ->
   class {'projectopen::permissions':
@@ -75,13 +75,4 @@ define projectopen (
     content  => template('projectopen/projectopen.erb'),
     mode     => '0755',
   }
-
-#  service { "projectopen":
-#    name     => "nds",
-#    ensure   => true,
-#    start    => "service projectopen start",
-#    stop     => "service projectopen stop",
-#    restart  => "service projectopen restart",
-#    require  => File['/etc/init.d/projectopen'],
-#  }
 }

@@ -35,4 +35,10 @@ class projectopen::permissions (
     group  => $group,
     owner  => $user,
   }
+
+  file { "Giving the right permissions for ${serverroot}/${server}/import.log":
+    path   => "${serverroot}/${server}/import.log",
+    group  => $group,
+    owner  => $user,
+  }
 }

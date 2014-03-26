@@ -33,10 +33,6 @@ These are the default parameters.
 ```
 ## Needed modules
 
-### Archive
-
-Git: https://github.com/camptocamp/puppet-archive.git
-
 ### Concat
 
 Git: https://github.com/puppetlabs/puppetlabs-concat.git

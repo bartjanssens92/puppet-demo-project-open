@@ -6,10 +6,16 @@ class projectopen::packages {
     centos, redhat: {
 
       yumrepo {'epel':
-        name        => 'epel',
+        descr       => 'epel',
         mirrorlist  => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=x86_64',
         enabled     => 1,
         gpgcheck    => 0,
+      }
+
+      yumrepo{'upstream':
+        baseurl  => 'http://pulp2.internal.inuits.eu/pulp/repos/pub/upstream',
+        descr    => 'Upstream packages at Inuits',
+        gpgcheck => '0',
       }
 
       if ! defined(Package['cvs']) {
