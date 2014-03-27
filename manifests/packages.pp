@@ -8,14 +8,12 @@ class projectopen::packages {
       if ! defined(Package['projectopen-aolserver']) {
         package { 'projectopen-aolserver':
           ensure   => 'present',
-          require  => Yumrepo['upstream'],
         }
       }
 
       if ! defined(Package['projectopen-dbname']) {
         package { 'projectopen-dbname':
           ensure   => 'present',
-          require  => Yumrepo['upstream'],
         }
       }
 
