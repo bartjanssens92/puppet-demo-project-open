@@ -25,15 +25,15 @@ class projectopen::postgresql_ins (
   ->
   exec { 'enable the procedural language PlPg/SQL':
     command => "su - ${root} -c 'createlang plpgsql ${dbname}'",
-    creates => '/tmp/.postgresqlOK.txt',
+    creates => '/var/.postgresqlOK.txt',
   }
   ->
   exec { 'load the database dump into the database that was part of the project-open-Update.x.y.z.tgz':
     command => "/bin/su - ${user} -c \"psql -d ${dbname} -U ${user} -f ${serverroot}/${dbname}/pg_dump.4.0.4.0.0.sql > import.log 2>&1\"",
-    creates => '/tmp/.postgresqlOK.txt',
+    creates => '/var/.postgresqlOK.txt',
   }
   ->
-  file { '/tmp/.postgresqlOK.txt':
+  file { '/var/.postgresqlOK.txt':
       ensure  => file,
       content => 'Does it work?',
   }
