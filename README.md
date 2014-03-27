@@ -20,7 +20,7 @@ These are the default parameters.
 		address			=> "0.0.0.0",
 		companyname		=> "company",
 		dbname			=> "projop",
-		debug			=> "true",
+		debug			=> false,
 		group			=> "projop",
 		hostname		=> "hostname",
 		httpport		=> "8000",
@@ -53,11 +53,11 @@ Git: https://github.com/puppetlabs/puppetlabs-stdlib.git
 
 ### address
 
-This sets the address for project open to run on.
+The address should be set an to actual value. Setting the address to 0.0.0.0 means aolserver listens on all interfaces
 
 ### companyname
 
-The name of the company that you are part off. Its not that important.
+The name of the company.
 
 ### dbname
 
@@ -65,7 +65,7 @@ The name of the database that project open is going to use. This is also the dat
 
 ### debug
 
-An option in the config.tcl file for setting the debug mode on or off, this by respectivly giving it the option true or false.
+Debug is turned on for demo servers. Please turn off for performance critical production installations.
 
 ### group
 
@@ -73,11 +73,11 @@ The group in which to add the user. If nonexisting, it will be created. The defa
 
 ### hostname
 
-The name of the host. Like the companyname, this is not that important.
+ The hostname should be set to  an actual value.
 
 ### httpport
 
-The port where project open will be listening on. 
+Web server ports. Change to 80 and 443 for production use or use "Pound" as a reverse proxy. If setting httpport below 1024 then please read comments in file: /var/lib/aolserver/service0/packages/etc/daemontools/run
 
 ### httpsport
 

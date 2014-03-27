@@ -5,7 +5,7 @@ define projectopen (
   $address      = '0.0.0.0',
   $companyname  = 'company',
   $dbname       = 'projop',
-  $debug        = true,
+  $debug        = false,
   $group        = 'projop',
   $hostname     = 'hostname',
   $httpport     = '8000',
@@ -17,10 +17,12 @@ define projectopen (
 
 ) {
 
-  # Fix the path issue
+#
+# Fixing the path resource so it doesn't need to be defined at every exec.
+#
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  class { 'projectopen::packages':}
+  class { 'projectopen::packages': }
   ->
   class { 'projectopen::users_and_groups':
     dbname      => $dbname,
@@ -29,12 +31,6 @@ define projectopen (
     user        => $user,
   }
   ->
-  # Ugly package fix till packages are available on repo
-#  exec { 'Installing projectopen-dbname':
-#    command  => "yum install /vagrant/modules/projectopen/files/projectopen-dbname-1.0-1.x86_64.rpm /vagrant/modules/projectopen/files/projectopen-aolserver-1.0-1.x86_64.rpm -y",
-#    creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
-#  }
-#  ->
   class {'projectopen::permissions':
     group       => $group,
     homedir     => '/usr/local',
@@ -74,5 +70,77 @@ define projectopen (
     path     => '/etc/init.d/projectopen',
     content  => template('projectopen/projectopen.erb'),
     mode     => '0755',
+  }
+
+#
+# Looking if the path of projectopen is right and move it if it isn't
+#
+
+  if ! ( $serverroot == '/web') {
+    if ! ( $dbname == 'projop') {
+      exec { "Move the package /web/projop to ${serverroot}/${dbname}":
+        command  => "mkdir ${serverroot} ${serverroot}/${dbname} && mv /web/projop/* ${serverroot}/${dbname} && rm /web -rf",
+        require  => [ Package['projectopen-aolserver'], Package['projectopen-dbname'] ],
+        creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
+      }
+    } else {
+      exec { "Move the package /web to ${serverroot}/${dbname}":
+        command  => "mkdir ${serverroot} && mv /web/* ${serverroot} && rm /web -rf",
+        require  => [ Package['projectopen-aolserver'], Package['projectopen-dbname'] ],
+        creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
+      }
+    }
+  }
+
+  if ! ( $dbname == 'projop') {
+    exec { "Move the package /projop to ${serverroot}/${dbname}":
+      command  => "mkdir ${serverroot}/${dbname} && mv /web/projop/* ${serverroot}/${dbname} && rm /web/projop -rf",
+      require  => [ Package['projectopen-aolserver'], Package['projectopen-dbname'] ],
+      creates  => "${serverroot}/${dbname}/README.project-open.4.0.4.0.0.txt",
+    }
+  }
+
+#
+# Checking if the parameters don't contain illegal characters.
+#
+
+  if ! ( $address =~ /([0-9]|\.)/ ) {
+    fail ( "The address: ${address} is not valid, please use 0-9.0-9.0-9.0-9" )
+  }
+
+  if ! ( $dbname =~ /([a-z]|[A-Z]|[0-9])/ ) {
+    fail ( "The dbname: ${dbname} is not valid, please use a-z, A-Z and 0-9")
+  }
+
+  if ! ( $debug == true or $debug == false) {
+    fail ( "The debug-value ${debug} is not valid, please use true or false without '' ")
+  }
+
+  if ! ( $group =~ /([a-z]|[A-Z]|[0-9])/ ) {
+    fail ( "The group name: ${group} is not valid, please use a-z, A-Z and 0-9")
+  }
+
+  if ! ( $hostname =~ /([a-z]|[A-Z]|[0-9])/ ) {
+    fail ( "The hostname: ${hostname} is not valid, please use a-z, A-Z and 0-9")
+  }
+
+  if ! ( $httpport =~ /[0-9]*/ ) {
+    fail ( "The httpport: ${httpport} is not valid please use 0-9")
+  }
+
+  if ! ( $httpsport =~ /[0-9]*/ ) {
+    fail ( "The httpsport: ${httpport} is not valid please use 0-9")
+  }
+
+  if ! ( $serverroot =~ /\/([A-Z]|[a-z])*/ ) {
+    fail ( "The serverroot name: ${serverroot} is not valid please use /a-z, A-Z")
+  }
+
+  if ! ( $superuser =~ /([a-z]|[A-Z]|[0-9])/ ) {
+    fail ( "The superuser name: ${superuser} is not valid, please use a-z, A-Z and 0-9")
+  }
+
+  if ! ( $user =~ /([a-z]|[A-Z]|[0-9])/ ) {
+    fail ( "The user name: ${user} is not valid, please use a-z, A-Z and 0-9")
   }
 }
