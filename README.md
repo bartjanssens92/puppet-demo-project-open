@@ -99,7 +99,7 @@ The directory where all the projectopen files will be placed in.
 
 The user off the database on the machine.
 
-## Project open REMOVE DOME VERSION
+## Project open REMOVE DEMO VERSION
 
 You can remove most of the demo data if you use an admin account. You need to go to: /admin/cleanup-demo/. This is the same as ADMIN-> ADMIN HOME -> scroll down till you see the area marked a Dangerous!! and click the first point. This allows to get rid off the demo data.
 
