@@ -48,11 +48,6 @@ define projectopen (
     user        => $user,
   }
   ->
-  class { 'projectopen::firewall_ins':
-    port   => $httpport,
-    sport  => $httpsport,
-  }
-  ->
   class {'projectopen::projectopen_config':
     address     => $::adddress,
     dbname      => $dbname,
