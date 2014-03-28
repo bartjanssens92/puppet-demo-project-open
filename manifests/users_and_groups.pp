@@ -9,11 +9,6 @@ class projectopen::users_and_groups (
 
 )  {
 
-  group { 'project open':
-    ensure    => 'present',
-    name      => $group,
-  }
-  ->
   user { "Adding the user ${user} to group ${group}":
     ensure  => 'present',
     name    => $user,
