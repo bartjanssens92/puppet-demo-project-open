@@ -1,3 +1,5 @@
+# THERE IS NO MORE DEVELOPMENT ON THIS MODULE
+
 ## DEMO project open
 
 This module installes the demo-version off project open, currently only on a centos server.
@@ -36,10 +38,6 @@ These are the default parameters.
 ### Concat
 
 Git: https://github.com/puppetlabs/puppetlabs-concat.git
-
-### Firewall
-
-Git: https://github.com/puppetlabs/puppetlabs-firewall.git
 
 ### Postgresql
 
